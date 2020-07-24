@@ -4,103 +4,79 @@ import {View, ScrollView, Image, Dimensions, Text, ImageBackground, Linking} fro
 import { TouchableOpacity, FlatList } from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('window');
 import api from './../../services/api';
-import Card from './../../components/Card';
+import CardInfo from './../../components/CardInfo';
 
-interface IRocket {
-	height: {
-		meters: number;
-		feet: number;
-	};
+interface IDragon {
+	heat_shield: {
+		material: string;
+		size_meters: number;
+		temp_degrees: number;
+		dev_partner: number;
+	},
+	launch_payload_mass: {
+	kg: number;
+	lb: number;
+	},
+	launch_payload_vol: {
+	cubic_meters: number;
+	cubic_feet: number;
+	},
+	return_payload_mass: {
+	kg: number;
+	lb: number;
+	},
+	return_payload_vol: {
+	cubic_meters: number;
+	cubic_feet: number;
+	},
+	pressurized_capsule: {
+	payload_volume: {
+		cubic_meters: number;
+		cubic_feet: number;
+	}
+	},
+	trunk: {
+	trunk_volume: {
+		cubic_meters: number;
+		cubic_feet: number;
+	},
+	cargo: {
+		solar_array: number;
+		unpressurized_cargo: true
+	}
+	},
+	height_w_trunk: {
+	meters: number;
+	feet: number;
+	},
 	diameter: {
-		meters: number;
-		feet: number;
-	};
-	mass: {
-		kg: number;
-		lb: number;
-	};
-	first_stage: {
-		thrust_sea_level: {
-			kN: number;
-			lbf: number;
-		};
-		thrust_vacuum: {
-			kN: number;
-			lbf: number;
-		};
-		reusable: boolean;
-		engines: number;
-		fuel_amount_tons: number;
-		burn_time_sec: number;
-	};
-	second_stage: {
-		thrust: {
-			kN: number;
-			lbf: number;
-		};
-		payloads: {
-			composite_fairing: {
-				height: {
-					meters: number;
-					feet: number;
-				};
-				diameter: {
-					meters: number;
-					feet: number;
-				};
-			};
-			option_1: string;
-		};
-		reusable: boolean;
-		engines: number;
-		fuel_amount_tons: number;
-		burn_time_sec: number;
-	};
-	engines: {
-		isp: {
-			sea_level: number;
-			vacuum: number;
-		};
-		thrust_sea_level: {
-			kN: number;
-			lbf: number;
-		};
-		thrust_vacuum: {
-			kN: number;
-			lbf: number;
-		};
-		number: number;
-		type: string;
-		version: string;
-		layout: string;
-		engine_loss_max: number;
-		propellant_1: string;
-		propellant_2: string;
-		thrust_to_weight: number;
-	};
-	landing_legs: {
-		number: number;
-		material: boolean;
-	};
-	payload_weights: [
-		{
-			id: string;
-			name: string;
-			kg: number;
-			lb: number;
-		},
-	];
-	flickr_images: [string];
+	meters: number;
+	feet: number;
+	},
+	first_flight: string;
+	flickr_images: [string],
 	name: string;
 	type: string;
-	active: boolean;
-	stages: number;
-	boosters: number;
-	cost_per_launch: number;
-	success_rate_pct: number;
-	first_flight: string;
-	country: string;
-	company: string;
+	active: true,
+	crew_capacity: number;
+	sidewall_angle_deg: number;
+	orbit_duration_yr: number;
+	dry_mass_kg: number;
+	dry_mass_lb: number;
+	thrusters: [
+	{
+		type: string;
+		amount: number;
+		pods: number;
+		fuel_1: string;
+		fuel_2: string;
+		isp: number;
+		thrust: {
+		kN: number;
+		lbf: number;
+		}
+	}
+	],
 	wikipedia: string;
 	description: string;
 	id: string;
@@ -108,28 +84,25 @@ interface IRocket {
 
 const Rockets: React.FC = () => {
 
-	const [rocketsData, setRocketsData] = React.useState<IRocket[]>([]);
+	const [dragonsData, setDragonsData] = React.useState<IDragon[]>([]);
 
 	useEffect(() => {
 		api({
-			url: '/rockets',
+			url: '/dragons',
 			method: 'GET',
 		}).then((response) => {
 			console.log(response.data);
-			setRocketsData(response.data);
+			setDragonsData(response.data);
 		});
 	},[]);
 
 	return (
 		<>
 			<FlatList
-			style={{
-				backgroundColor: "#0d0e25"
-			}}
-				data={rocketsData}
+				data={dragonsData}
 				renderItem={({item}) => (
-					<TouchableOpacity onPress={() => Linking.openURL(item.wikipedia)}>
-						<Card nome={item.name} imagem={ item.flickr_images[0] }/>
+					<TouchableOpacity onPress={() => {}}>
+						<CardInfo titulo={item.name} imagem={item.flickr_images[0]} descricao={item.description} />
 					</TouchableOpacity>
 				)}
 			/>
