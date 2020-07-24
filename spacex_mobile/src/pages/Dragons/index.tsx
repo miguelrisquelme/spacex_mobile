@@ -101,7 +101,7 @@ const Rockets: React.FC = () => {
 			<FlatList
 				data={dragonsData}
 				renderItem={({item}) => (
-					<TouchableOpacity onPress={() => {}}>
+					<TouchableOpacity onPress={() => Linking.openURL(item.wikipedia)}>
 						<CardInfo titulo={item.name} imagem={item.flickr_images[0]} descricao={item.description} />
 					</TouchableOpacity>
 				)}

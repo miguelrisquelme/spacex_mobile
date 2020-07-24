@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Button, Text, ScrollView } from 'react-native';
+import { View, Button, Text, ScrollView, Linking } from 'react-native';
 import { TouchableOpacity, TouchableHighlight } from 'react-native-gesture-handler';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Home: React.FC = ({ navigation }) => {
 	return (
@@ -14,18 +15,28 @@ const Home: React.FC = ({ navigation }) => {
 			<View
 				style={{
 					flex: 3,
-					padding: 20,
+					padding: 40,
+					flexDirection: "row",
+					alignItems: "center",
+					justifyContent: "space-between",
 				}}
 			>
-				<Text style={{
-					color: "#2f2e41",
-					fontSize: 30,
-					fontWeight: "bold",
-				}}>Bem vindo a </Text><Text style={{
-					color: "#F9A826",
-					fontSize: 30,
-					fontWeight: "bold",
-				}}>SpaceX Mobile</Text>
+				<View>
+					<Text style={{
+						color: "#2f2e41",
+						fontSize: 30,
+						fontWeight: "bold",
+					}}>Bem vindo a </Text><Text style={{
+						color: "#F9A826",
+						fontSize: 30,
+						fontWeight: "bold",
+					}}>SpaceX Mobile</Text>
+				</View>
+				<View>
+					<TouchableOpacity onPress={() => Linking.openURL("https://github.com/miguelrisquelme/spacex_mobile")}>
+						<AntDesign name="github" size={40} color="#2f2e41" />
+					</TouchableOpacity>
+				</View>
 			</View>
 			<View
 				style={{
