@@ -51,6 +51,21 @@ const Home: React.FC = ({ navigation }) => {
 						<FontAwesomeIcon name="rocket" color="#F9A826" size={55} />
 					</View>
 				</TouchableOpacity>
+				<TouchableOpacity onPress={() => {navigation.navigate("Dragons")}}>
+					<View 
+						style={{
+							padding: 30,
+							borderRadius: 15,
+							backgroundColor: "#2f2e41",
+							width: 125,
+							margin: 10,
+							borderColor: "#F9A826",
+							borderWidth: 5,
+						}}
+					>
+						<FontAwesomeIcon name="ethernet" color="#F9A826" size={55} />
+					</View>
+				</TouchableOpacity>
 			</View>
 		</ScrollView>
 	);
